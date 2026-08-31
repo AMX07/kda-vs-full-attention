@@ -1,0 +1,74 @@
+[project]
+name = "karpathygpt-hw"
+version = "0.1.0"
+description = "Learning-in-public workspace for Karpathy GPT homework and transformer experiments."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "accelerate",
+    "datasets",
+    "einops",
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "python-dotenv",
+    "rich",
+    "safetensors",
+    "scikit-learn",
+    "sentencepiece",
+    "tensorboard",
+    "tiktoken",
+    "tokenizers",
+    "torch",
+    "tqdm",
+    "transformers",
+    "typer",
+    "wandb",
+]
+
+[dependency-groups]
+dev = [
+    "ipykernel",
+    "ipywidgets",
+    "jedi-language-server",
+    "jupyterlab",
+    "mypy",
+    "nbstripout",
+    "notebook",
+    "pre-commit",
+    "pytest",
+    "ruff",
+]
+apple = [
+    "mlx; sys_platform == 'darwin' and platform_machine == 'arm64'",
+]
+
+[project.scripts]
+kgpt-check-env = "karpathygpt_hw.device:main"
+kgpt-train-long-addition = "karpathygpt_hw.long_addition:main"
+kgpt-train-long-addition-hybrid = "karpathygpt_hw.hybrid_addition:main"
+kgpt-train-variable-addition-hybrid = "karpathygpt_hw.variable_hybrid_addition:main"
+kgpt-addition-ui = "karpathygpt_hw.addition_ui:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.mypy]
+python_version = "3.12"
+warn_return_any = true
+warn_unused_configs = true
+strict = false

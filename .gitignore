@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# uv / virtual environments
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+.cache/
+
+# Experiment artifacts
+data/raw/*
+data/processed/*
+models/*
+runs/*
+wandb/
+
+!data/raw/README.md
+!data/processed/README.md
+!models/README.md
+!runs/README.md
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Jupyter jupytext mirrors and local scratch
+.virtual_documents/
+tmp/
