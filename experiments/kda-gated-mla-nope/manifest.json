@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-24",
+  "repository_head_before_uncommitted_work": "21b1fcaf2d2ac3e4973eab45a438136191a25356",
+  "experiment_id": "kda-gated-mla-nope-long-addition",
+  "status": "trainer_validated_target_accuracy_pending",
+  "architecture": {
+    "model": "KDAHybridAdditionModel",
+    "layers": 4,
+    "layer_composition": ["KDA", "KDA", "KDA", "GatedMLA"],
+    "dims": 64,
+    "heads": 4,
+    "kda_head_dim": 16,
+    "mla_head_dim": 32,
+    "q_lora_rank": 32,
+    "kv_lora_rank": 32,
+    "parameters": 238921,
+    "baseline_parameter_difference": 1004,
+    "baseline_parameter_difference_fraction": 0.004219958223926918,
+    "position_encoding": "none",
+    "rope": false,
+    "arithmetic_column_sinusoid": false,
+    "aligned_operand_context": false,
+    "reversed_answer_digits": true,
+    "kda_fused_metal_custom_vjp": true,
+    "mla_global_causal_attention": true,
+    "mla_output_gate": true
+  },
+  "tokenizer": {
+    "kind": "character_index",
+    "tokens": [" ", "+", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "="],
+    "vocab_size": 13
+  },
+  "task": {
+    "serialization": "A+B=reverse(sum)<space>",
+    "loss": "teacher_forced_answer_only_next_token_cross_entropy",
+    "maximum_operand_digits": 1364,
+    "maximum_model_input_tokens": 4095,
+    "maximum_serialized_characters": 4096
+  },
+  "default_full_training_recipe": {
+    "schedule": [
+      {"digits": 1, "maximum_updates": 2000},
+      {"digits": 2, "maximum_updates": 3000},
+      {"digits": 4, "maximum_updates": 5000},
+      {"digits": 8, "maximum_updates": 10000},
+      {"digits": 16, "maximum_updates": 20000},
+      {"digits": 32, "maximum_updates": 25000},
+      {"digits": 64, "maximum_updates": 25000},
+      {"digits": 128, "maximum_updates": 25000},
+      {"digits": 256, "maximum_updates": 25000},
+      {"digits": 512, "maximum_updates": 20000},
+      {"digits": 1024, "maximum_updates": 10000},
+      {"digits": 1364, "maximum_updates": 10000}
+    ],
+    "maximum_updates": 180000,
+    "long_context_batch_size": 4,
+    "adaptive_stage_batch_sizes": {
+      "1_to_128_digits": 64,
+      "256_digits": 32,
+      "512_digits": 16,
+      "1024_digits": 8,
+      "1364_digits": 4
+    },
+    "eval_batch_size_recommended_for_comparison": 64,
+    "learning_rate": 0.0003,
+    "lr_decay_steps": 250000,
+    "weight_decay": 0.01,
+    "warmup_steps": 1000,
+    "max_grad_norm": 1.0,
+    "carry_heavy_fraction": 0.5,
+    "rehearsal_fraction": 0.0,
+    "early_stop_consecutive_perfect_evaluations": 2,
+    "seed": 4242
+  },
+  "trial_lineage": [
+    {
+      "run": "runs/kda-gated-mla-smoke-current",
+      "purpose": "current code-path smoke test",
+      "updates": 20,
+      "result": "completed_with_checkpoints_logs_and_best_pointers",
+      "training_log_sha256": "92a5f28352696d0b615b180f6f3ea8adf838a96111d18d5107cd6503de6ca32c"
+    },
+    {
+      "run": "runs/kda-gated-mla-1-16-trial",
+      "purpose": "initial mixed 3/8/16-digit curriculum",
+      "updates": 10000,
+      "result": "16_digit_exact_accuracy_0",
+      "training_log_sha256": "fd8c0d4a59dbabd97177be0cd46a4571588a5a9e38950963f3c2e40969fbf04d"
+    },
+    {
+      "run": "runs/kda-gated-mla-focus-8",
+      "purpose": "focused 8-digit continuation",
+      "forked_from": "runs/kda-gated-mla-1-16-trial/checkpoint-00002000",
+      "selected_global_step": 10000,
+      "selected_random_exact_accuracy": 0.96875,
+      "selected_carry_exact_accuracy": 1.0,
+      "training_log_sha256": "3c6006239133d0ea343b74a3e948be68a0563c09f257a316373cee5acd57d209"
+    },
+    {
+      "run": "runs/kda-gated-mla-focus-16",
+      "purpose": "focused 16-digit continuation",
+      "forked_from": "runs/kda-gated-mla-focus-8/checkpoint-00010000",
+      "selected_global_step": 28000,
+      "selected_random_examples": 64,
+      "selected_random_exact_accuracy": 1.0,
+      "selected_carry_examples": 64,
+      "selected_carry_exact_accuracy": 1.0,
+      "checkpoint_model_sha256": "7c244273fa4158e5ad5d1b3bfe07ec2ad091391eb191e43d13c811378ed797c5",
+      "checkpoint_state_sha256": "b28dd693f82bfe1576de14c70ce9a053143451e30c58d16156afbdbcbaf4c9c8",
+      "training_log_sha256": "69d190a187191b0f4291a6420d2da277f01c0c735a91fb4520d13d35a8330073"
+    },
+    {
+      "run": "runs/kda-gated-mla-1364-trial",
+      "purpose": "target-width scaling trial",
+      "forked_from": "runs/kda-gated-mla-focus-16/checkpoint-00028000",
+      "target_width_updates": 500,
+      "target_width_examples": 2000,
+      "batch_size": 4,
+      "recorded_step_ms": 158.98159491953265,
+      "recorded_tokens_per_second": 103030.79427710242,
+      "final_random_digit_accuracy": 0.10366300366300367,
+      "final_random_exact_accuracy": 0.0,
+      "final_carry_digit_accuracy": 0.2847985347985348,
+      "final_carry_exact_accuracy": 0.0,
+      "checkpoint_model_sha256": "85225e37961ae070d684df47eee86c76ec99c1f4897cd769b1611b9ee999f704",
+      "checkpoint_state_sha256": "8703e91e903a48adb38ec047a25f732450de7b9d852082201bd56dfc23b29e77",
+      "training_log_sha256": "929c4c49633e2c345e3ff9dc37e4649b8acfad99011617c251f85faf689c62e4"
+    }
+  ],
+  "length_generalization": {
+    "artifact": "experiments/kda-gated-mla-nope/length-sweep.json",
+    "artifact_sha256": "b8344f8e40d6663c04ce2dbe9a6201753232f93c094fb2cb6dedc658718c8e5c",
+    "summary": "100_percent_exact_at_16_digits_and_0_percent_exact_at_every_tested_width_17_to_256"
+  },
+  "comparison_status": {
+    "baseline": "experiments/kda-aligned-context-1364/manifest.json",
+    "baseline_teacher_forced_1364_exact_accuracy": 1.0,
+    "hybrid_teacher_forced_1364_exact_accuracy": 0.0,
+    "hybrid_full_curriculum_completed": false,
+    "hybrid_strict_autoregressive_1364_validation_completed": false,
+    "claim": "target_performance_not_yet_matched"
+  },
+  "artifact_hashes": {
+    "training_source": {
+      "path": "src/karpathygpt_hw/hybrid_addition.py",
+      "sha256": "1ee467c7e4556a4dca96ecad2f1a613d6958ce13f50b090a76790b6a2bd1fd08"
+    },
+    "training_entry_point": {
+      "path": "scripts/train_long_addition_kda_gated_mla.py",
+      "sha256": "bef9c654c4c852961bd9da299eb0468525922098af78d03e706775d2ec88cb38"
+    },
+    "tests": {
+      "path": "tests/test_hybrid_addition.py",
+      "sha256": "a33838825ce5d415d6c7b95296221a259efbed661fa540c31632aa890a3001a1"
+    },
+    "environment_lock": {
+      "path": "uv.lock",
+      "sha256": "817dd0782f11aa6e4241887399020054b0f9c349b821249917af5d50844ad5dc"
+    }
+  },
+  "verification": {
+    "ruff": "passed",
+    "pytest": "34_passed",
+    "current_smoke_run": "passed"
+  }
+}

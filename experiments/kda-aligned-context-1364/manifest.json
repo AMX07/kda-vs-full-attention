@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-08-24",
+  "repository_head": "21b1fcaf2d2ac3e4973eab45a438136191a25356",
+  "baseline_id": "kda-aligned-context-1364-step-3200",
+  "architecture": {
+    "model": "KDAAdditionModel",
+    "layers": 4,
+    "layer_composition": ["KDA", "KDA", "KDA", "KDA"],
+    "dims": 64,
+    "heads": 4,
+    "head_dim": 16,
+    "parameters": 237917,
+    "position_encoding": "addition_column_context",
+    "rope": false,
+    "arithmetic_column_sinusoid": false,
+    "aligned_operand_context": true,
+    "reversed_answer_digits": true
+  },
+  "tokenizer": {
+    "kind": "character_index",
+    "tokens": [" ", "+", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "="],
+    "vocab_size": 13
+  },
+  "deployed_checkpoint": {
+    "path": "runs/kda-aligned-context-1364-final/checkpoint-00003200/model.safetensors",
+    "sha256": "43f95af1cccb08135d71b0f5fcaf81caed04d1776d8bb681e95b9bc21467c68d",
+    "global_step": 3200,
+    "target_width_updates": 200,
+    "target_width_examples": 12800
+  },
+  "training": {
+    "fork_checkpoint": "runs/kda-aligned-context-nope-trial/checkpoint-00003000",
+    "target_digits": 1364,
+    "model_input_tokens": 4095,
+    "serialized_characters": 4096,
+    "batch_size": 64,
+    "eval_batch_size": 128,
+    "learning_rate": 0.0003,
+    "lr_decay_steps": 100000,
+    "weight_decay": 0.01,
+    "warmup_steps": 1000,
+    "max_grad_norm": 1.0,
+    "carry_heavy_fraction": 0.5,
+    "rehearsal_fraction": 0.0,
+    "seed": 4242,
+    "recorded_step_ms": 532.963433200166,
+    "recorded_tokens_per_second": 491741.05327704566
+  },
+  "recorded_validation": {
+    "step": 3200,
+    "teacher_forced_random_examples": 128,
+    "teacher_forced_random_exact_accuracy": 1.0,
+    "teacher_forced_carry_examples": 128,
+    "teacher_forced_carry_exact_accuracy": 1.0,
+    "strict_width_sweep_seed": 20260824,
+    "strict_widths": [1, 7, 16, 17, 32, 64, 127, 256, 512, 1024, 1364],
+    "strict_cases_per_width": ["random", "full_carry"],
+    "strict_width_sweep_exact": "22/22",
+    "strict_1364_seed": 917364,
+    "strict_1364_random_cases": 16,
+    "strict_1364_structured_cases": [
+      "all_zero",
+      "max_plus_one",
+      "all_nines_twice",
+      "alternating",
+      "sparse_ends",
+      "central_carry"
+    ],
+    "strict_1364_exact": "22/22"
+  },
+  "artifact_hashes": {
+    "checkpoint_state": {
+      "path": "runs/kda-aligned-context-1364-final/checkpoint-00003200/state.json",
+      "sha256": "70effd3e9f95be06f2b1f6e3400dafed35343111f84244dc4811f1644732e229"
+    },
+    "training_log": {
+      "path": "runs/kda-aligned-context-1364-final/training.jsonl",
+      "sha256": "199889fdd4ef3fcf75dd39df71a5783d185c34e2ea182f38061f95e8c723245f"
+    },
+    "kda_source": {
+      "path": "src/karpathygpt_hw/kda_mlx.py",
+      "sha256": "7b3d69c29bf5a57b1d6a4a8b931c3b8e25ace5d02183aef8e16200efb9e5f982"
+    },
+    "data_and_training_source": {
+      "path": "src/karpathygpt_hw/long_addition.py",
+      "sha256": "16d3ae9fbb9fe523a6664ff4258328fa317e062071c797c85d5559ab8eaf5f46"
+    },
+    "training_entry_point": {
+      "path": "scripts/train_long_addition_kda.py",
+      "sha256": "cbed400878b0a5103474f48f723100a998132b23ce9ea93b4fe55f36238a9dc9"
+    },
+    "notebook": {
+      "path": "notebooks/gpt_hw-2.ipynb",
+      "sha256": "cf08c969ce6fbbc791774ad321d2e73e8163c2d77e08b636351c0ec4b6576bcb"
+    },
+    "environment_lock": {
+      "path": "uv.lock",
+      "sha256": "817dd0782f11aa6e4241887399020054b0f9c349b821249917af5d50844ad5dc"
+    }
+  }
+}

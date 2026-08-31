@@ -1,0 +1,51 @@
+{
+  "checkpoint": "runs/kda-gated-mla-focus-16/checkpoint-00028000/model.safetensors",
+  "seed": 20260824,
+  "batch_size_per_class": 64,
+  "classes": ["random", "carry_chain"],
+  "teacher_forced": true,
+  "results": [
+    {
+      "digits": 16,
+      "random_digit_accuracy": 1.0,
+      "random_exact_accuracy": 1.0,
+      "carry_digit_accuracy": 1.0,
+      "carry_exact_accuracy": 1.0
+    },
+    {
+      "digits": 17,
+      "random_digit_accuracy": 0.2986111111111111,
+      "random_exact_accuracy": 0.0,
+      "carry_digit_accuracy": 0.34375,
+      "carry_exact_accuracy": 0.0
+    },
+    {
+      "digits": 32,
+      "random_digit_accuracy": 0.19886363636363635,
+      "random_exact_accuracy": 0.0,
+      "carry_digit_accuracy": 0.23106060606060605,
+      "carry_exact_accuracy": 0.0
+    },
+    {
+      "digits": 64,
+      "random_digit_accuracy": 0.12163461538461538,
+      "random_exact_accuracy": 0.0,
+      "carry_digit_accuracy": 0.13774038461538463,
+      "carry_exact_accuracy": 0.0
+    },
+    {
+      "digits": 128,
+      "random_digit_accuracy": 0.09302325581395349,
+      "random_exact_accuracy": 0.0,
+      "carry_digit_accuracy": 0.1343265503875969,
+      "carry_exact_accuracy": 0.0
+    },
+    {
+      "digits": 256,
+      "random_digit_accuracy": 0.09046692607003891,
+      "random_exact_accuracy": 0.0,
+      "carry_digit_accuracy": 0.1602626459143969,
+      "carry_exact_accuracy": 0.0
+    }
+  ]
+}
