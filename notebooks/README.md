@@ -10,4 +10,4 @@ Recommended naming:
 02_dataset_exploration.ipynb
 ```
 
-When a notebook starts becoming reusable, move the code into `src/karpathygpt_hw/` or a homework exercise folder.
+When a notebook starts becoming reusable, move the code into `src/karpathygpt_hw/`.
